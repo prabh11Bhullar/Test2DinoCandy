@@ -202,7 +202,21 @@ public class GameEngine extends SurfaceView implements Runnable {
     // - update, draw, setFPS
     // ------------------------------
 
+         String personTapped="";
     public void updatePositions() {
+        //move player up/down on tapping
+        if (personTapped.contentEquals("up")){
+            this.playerYposition = this.playerYposition - 10;
+        }
+        else if (personTapped.contentEquals("down")){
+            this.playerYposition = this.playerYposition + 10;
+        }
+
+
+        this.playerHitbox.left  = this.playerXposition;
+        this.playerHitbox.top = this.playerYposition;
+        this.playerHitbox.right  = this.playerXposition + this.playerImage.getWidth();
+        this.playerHitbox.bottom = this.playerYposition + this.playerImage.getHeight();
 
 
     }
@@ -273,6 +287,24 @@ public class GameEngine extends SurfaceView implements Runnable {
         int userAction = event.getActionMasked();
         //@TODO: What should happen when person touches the screen?
         if (userAction == MotionEvent.ACTION_DOWN) {
+            // 1. Get position of tap
+            float fingerXPosition = event.getX();
+            float fingerYPosition = event.getY();
+            Log.d(TAG, "Person's pressed: "
+                    + fingerXPosition + ","
+                    + fingerYPosition);
+
+
+            // 2. Compare position of tap to middle of screen
+            int middleOfScreen = this.screenHeight / 2;
+            if (fingerYPosition <= middleOfScreen) {
+                // 3. If tap is on top, player should go up
+                personTapped = "up";
+            }
+            else if (fingerYPosition > middleOfScreen) {
+                // 4. If tap is on down part, player should go down
+                personTapped = "down";
+            }
 
         }
         else if (userAction == MotionEvent.ACTION_UP) {
