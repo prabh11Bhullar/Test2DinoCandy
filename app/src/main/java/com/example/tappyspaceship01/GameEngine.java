@@ -203,6 +203,10 @@ public class GameEngine extends SurfaceView implements Runnable {
     // ------------------------------
 
          String personTapped="";
+         String candyMove="right";
+         String garbageMove="right";
+         String ranbowMove="right";
+
     public void updatePositions() {
         //move player up/down on tapping
         if (personTapped.contentEquals("up")){
@@ -212,7 +216,33 @@ public class GameEngine extends SurfaceView implements Runnable {
             this.playerYposition = this.playerYposition + 10;
         }
 
-
+         if(candyMove=="right")
+         {
+             this.candyXposition=candyXposition+25;
+             if(candyXposition>=screenHeight)
+             {
+                 this.candyXposition = 100;
+                 this.candyYposition = 120;
+             }
+         }
+        if(garbageMove=="right")
+        {
+            this.garbageXposition=garbageXposition+30;
+            if(garbageXposition>=screenHeight)
+            {
+                this.garbageXposition = 100;
+                this.garbageYposition = 500;
+            }
+        }
+        if(ranbowMove=="right")
+        {
+            this.ranbowXposition=ranbowXposition+35;
+            if(ranbowXposition>=screenHeight)
+            {
+                this.ranbowXposition = 100;
+                this.ranbowYposition = 900;
+            }
+        }
         this.playerHitbox.left  = this.playerXposition;
         this.playerHitbox.top = this.playerYposition;
         this.playerHitbox.right  = this.playerXposition + this.playerImage.getWidth();
