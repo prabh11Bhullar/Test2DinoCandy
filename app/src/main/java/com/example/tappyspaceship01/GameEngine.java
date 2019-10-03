@@ -111,7 +111,7 @@ public class GameEngine extends SurfaceView implements Runnable {
 //
         this.laneImage2 = BitmapFactory.decodeResource(this.getContext().getResources(), R.drawable.player_laser);
         this.laneXposition2 = 50;
-        this.laneYposition2 = 920;
+        this.laneYposition2 = 1100;
 
         // put initial starting postion of candy
         this.candyImage = BitmapFactory.decodeResource(this.getContext().getResources(), R.drawable.candy64);
