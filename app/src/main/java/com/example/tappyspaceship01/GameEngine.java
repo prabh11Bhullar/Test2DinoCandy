@@ -42,7 +42,7 @@ public class GameEngine extends SurfaceView implements Runnable {
     Bitmap playerImage;
     Bitmap candyImage;
     Bitmap garbageImage;
-    Bitmap ranbow;
+    Bitmap ranbowImage;
 
     int candyXposition;
     int candyYposition;
@@ -55,7 +55,7 @@ public class GameEngine extends SurfaceView implements Runnable {
 
     Rect playerHitbox;
     Rect candyHitbox;
-    Rect garbageHitbow;
+    Rect garbageHitbox;
     Rect ranbowHitbox;
 
 
@@ -90,41 +90,41 @@ public class GameEngine extends SurfaceView implements Runnable {
 
         // put initial starting postion of candy
         this.candyImage = BitmapFactory.decodeResource(this.getContext().getResources(), R.drawable.candy64);
-        this.candyXposition = 1300;
+        this.candyXposition = 100;
         this.candyYposition = 120;
         // 1. create the hitbox
         this.candyHitbox = new
 
-                Rect(1300,
+                Rect(100,
                 120,
-                1300 + candyImage.getWidth(),
+                100 + candyImage.getWidth(),
                 120 + candyImage.getHeight()
         );
         // put initial starting postion of garbage
 
-        this.candyImage = BitmapFactory.decodeResource(this.getContext().getResources(), R.drawable.poop64);
-        this.candyXposition = 1300;
-        this.candyYposition = 220;
+        this.garbageImage = BitmapFactory.decodeResource(this.getContext().getResources(), R.drawable.poop64);
+        this.garbageXposition = 100;
+        this.garbageYposition = 500;
         // 1. create the hitbox
-        this.candyHitbox = new
+        this.garbageHitbox = new
 
-                Rect(1300,
+                Rect(100,
                 120,
-                1300 + candyImage.getWidth(),
-                220 + candyImage.getHeight()
+                100 + garbageImage.getWidth(),
+                500 + garbageImage.getHeight()
         );
 
         // put initial starting postion of ranbow
-        this.candyImage = BitmapFactory.decodeResource(this.getContext().getResources(), R.drawable.rainbow64);
-        this.candyXposition = 1300;
-        this.candyYposition = 320;
+        this.ranbowImage = BitmapFactory.decodeResource(this.getContext().getResources(), R.drawable.rainbow64);
+        this.ranbowXposition = 100;
+        this.ranbowYposition = 900;
         // 1. create the hitbox
-        this.candyHitbox = new
+        this.ranbowHitbox = new
 
-                Rect(1300,
+                Rect(100,
                 120,
-                1300 + candyImage.getWidth(),
-                320 + candyImage.getHeight()
+                100 + ranbowImage.getWidth(),
+                900 + ranbowImage.getHeight()
         );
 
 
@@ -137,14 +137,14 @@ public class GameEngine extends SurfaceView implements Runnable {
                         getResources(),
 
                 R.drawable.dino64);
-        this.playerXposition = 100;
+        this.playerXposition = 2000;
         this.playerYposition = 600;
 
         this.playerHitbox = new
 
-                Rect(100,
+                Rect(2000,
                 600,
-                100 + playerImage.getWidth(),
+                2000 + playerImage.getWidth(),
                 600 + playerImage.getHeight()
         );
     }
@@ -216,6 +216,28 @@ public class GameEngine extends SurfaceView implements Runnable {
             // configure the drawing tools
             this.canvas.drawColor(Color.argb(255,255,255,255));
             paintbrush.setColor(Color.WHITE);
+
+            // draw player graphic on screen
+            canvas.drawBitmap(playerImage, playerXposition, playerYposition, paintbrush);
+            // draw the player's hitbox
+            canvas.drawRect(this.playerHitbox, paintbrush);
+
+            // draw candy graphic on screen
+            canvas.drawBitmap(candyImage, candyXposition, candyYposition, paintbrush);
+            // draw the player's hitbox
+            canvas.drawRect(this.candyHitbox, paintbrush);
+
+            // draw garbage graphic on screen
+            canvas.drawBitmap(garbageImage, garbageXposition, garbageYposition, paintbrush);
+            // draw the player's hitbox
+            canvas.drawRect(this.garbageHitbox, paintbrush);
+
+            // draw ranbow graphic on screen
+            canvas.drawBitmap(ranbowImage, ranbowXposition, ranbowYposition, paintbrush);
+            // draw the player's hitbox
+            canvas.drawRect(this.ranbowHitbox, paintbrush);
+
+
 
 
             // DRAW THE PLAYER HITBOX
