@@ -43,6 +43,9 @@ public class GameEngine extends SurfaceView implements Runnable {
     Bitmap candyImage;
     Bitmap garbageImage;
     Bitmap ranbowImage;
+    Bitmap laneImage;
+    Bitmap laneImage1;
+    Bitmap laneImage2;
 
     int candyXposition;
     int candyYposition;
@@ -52,6 +55,16 @@ public class GameEngine extends SurfaceView implements Runnable {
 
     int ranbowXposition;
     int ranbowYposition;
+
+
+    int laneXposition;
+    int laneYposition;
+
+    int laneXposition1;
+    int laneYposition1;
+
+    int laneXposition2;
+    int laneYposition2;
 
     Rect playerHitbox;
     Rect candyHitbox;
@@ -87,6 +100,18 @@ public class GameEngine extends SurfaceView implements Runnable {
 
 
 // @TODO: Add your sprites
+
+        this.laneImage = BitmapFactory.decodeResource(this.getContext().getResources(), R.drawable.player_laser);
+        this.laneXposition = 50;
+        this.laneYposition = 320;
+
+//        this.laneImage1 = BitmapFactory.decodeResource(this.getContext().getResources(), R.drawable.player_laser);
+//        this.laneXposition1 = 50;
+//        this.laneYposition1 = 220;
+//
+//        this.laneImage = BitmapFactory.decodeResource(this.getContext().getResources(), R.drawable.player_laser);
+//        this.laneXposition2 = 50;
+//        this.laneYposition2 = 320;
 
         // put initial starting postion of candy
         this.candyImage = BitmapFactory.decodeResource(this.getContext().getResources(), R.drawable.candy64);
@@ -147,6 +172,7 @@ public class GameEngine extends SurfaceView implements Runnable {
                 2000 + playerImage.getWidth(),
                 600 + playerImage.getHeight()
         );
+
     }
 
 
@@ -206,49 +232,47 @@ public class GameEngine extends SurfaceView implements Runnable {
          String candyMove="right";
          String garbageMove="right";
          String ranbowMove="right";
+         int score=0;
 
     public void updatePositions() {
         //move player up/down on tapping
-        if (personTapped.contentEquals("up")){
+        if (personTapped.contentEquals("up")) {
             this.playerYposition = this.playerYposition - 10;
-        }
-        else if (personTapped.contentEquals("down")){
+        } else if (personTapped.contentEquals("down")) {
             this.playerYposition = this.playerYposition + 10;
         }
 
-         if(candyMove=="right")
-         {
-             this.candyXposition=candyXposition+25;
-             if(candyXposition>=screenHeight)
-             {
-                 this.candyXposition = 100;
-                 this.candyYposition = 120;
-             }
-         }
-        if(garbageMove=="right")
-        {
-            this.garbageXposition=garbageXposition+30;
-            if(garbageXposition>=screenHeight)
-            {
+        if (candyMove == "right") {
+            this.candyXposition = candyXposition + 25;
+            if (candyXposition >= screenHeight) {
+                this.candyXposition = 100;
+                this.candyYposition = 120;
+            }
+        }
+        if (garbageMove == "right") {
+            this.garbageXposition = garbageXposition + 30;
+            if (garbageXposition >= screenHeight) {
                 this.garbageXposition = 100;
                 this.garbageYposition = 500;
             }
         }
-        if(ranbowMove=="right")
-        {
-            this.ranbowXposition=ranbowXposition+35;
-            if(ranbowXposition>=screenHeight)
-            {
+        if (ranbowMove == "right") {
+            this.ranbowXposition = ranbowXposition + 35;
+            if (ranbowXposition >= screenHeight) {
                 this.ranbowXposition = 100;
                 this.ranbowYposition = 900;
             }
         }
-        this.playerHitbox.left  = this.playerXposition;
+        this.playerHitbox.left = this.playerXposition;
         this.playerHitbox.top = this.playerYposition;
-        this.playerHitbox.right  = this.playerXposition + this.playerImage.getWidth();
+        this.playerHitbox.right = this.playerXposition + this.playerImage.getWidth();
         this.playerHitbox.bottom = this.playerYposition + this.playerImage.getHeight();
 
+        if (this.playerHitbox.intersect(this.candyHitbox) == true) {
+            Log.d(TAG, "++++++ENEMY AND PLAYER HITS TOGETHER");
 
+            score=score+1;
+        }
     }
 
     public void redrawSprites() {
@@ -280,6 +304,14 @@ public class GameEngine extends SurfaceView implements Runnable {
             canvas.drawBitmap(ranbowImage, ranbowXposition, ranbowYposition, paintbrush);
             // draw the player's hitbox
             canvas.drawRect(this.ranbowHitbox, paintbrush);
+
+            // draw lanes graphic on screen
+            canvas.drawBitmap(laneImage, laneXposition, laneYposition, paintbrush);
+
+//            canvas.drawBitmap(laneImage1, laneXposition1, laneYposition1, paintbrush);
+//            canvas.drawBitmap(laneImage2, laneXposition2, laneYposition2, paintbrush);
+            paintbrush.setTextSize(60);
+            canvas.drawText("Score: " + this.score, 20, 20, paintbrush);
 
 
 
